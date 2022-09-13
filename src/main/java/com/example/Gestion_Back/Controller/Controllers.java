@@ -11,7 +11,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Gestion_Back.Models.Client;
+import com.example.Gestion_Back.Models.Commande;
 import com.example.Gestion_Back.Models.Produit;
+import com.example.Gestion_Back.Service.ServiceClient;
+import com.example.Gestion_Back.Service.ServiceCommande;
 import com.example.Gestion_Back.Service.ServiceProduit;
 
 @RestController
@@ -22,12 +26,19 @@ public class Controllers {
     @Autowired
     ServiceProduit serviceProduit;
 
+    @Autowired 
+    ServiceClient serviceClient;
+    
+
+    @Autowired
+    ServiceCommande serviceCommande;
+
     @PostMapping
     public Produit ajoutProduit(@RequestBody Produit produit){
         return serviceProduit.ajouterProduit(produit);
     }
 
-    @GetMapping("/get")
+    @GetMapping
     public List<Produit> affProduits(){
         return serviceProduit.affiche_produits();
     }
@@ -38,4 +49,19 @@ public class Controllers {
        return serviceProduit.trouver_nom(produit, nomPro);
     }
 
+    @PostMapping("/client")
+    public Client ajoutClient(@RequestBody Client client){
+        return serviceClient.ajouterClient(client);
+    }
+
+    @GetMapping("/client")
+    public List<Client> affClients(Client client){
+        return serviceClient.affiche_Client(client);
+    }
+
+
+    @PostMapping("/commande")
+    public Commande ajoutCommande(@RequestBody Commande commande){
+        return serviceCommande.ajouter(commande);
+    }
 }

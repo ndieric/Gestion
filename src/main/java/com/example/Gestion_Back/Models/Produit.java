@@ -1,13 +1,13 @@
 package com.example.Gestion_Back.Models;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+
 
 @Entity
 public class Produit {
@@ -18,10 +18,7 @@ public class Produit {
     private String nomPro;
     private double prix;
 
-    // @OneToMany(targetEntity = Commande.class, cascade = CascadeType.ALL)
-    // @JoinColumn(name = "idPro", referencedColumnName = "idPro")
-    // private Commande commande;
-    
+  
     public Produit() {
     }
     public Produit(String codePro, String nomPro, double prix) {
@@ -53,13 +50,5 @@ public class Produit {
     public void setPrix(double prix) {
         this.prix = prix;
     }
-    // public Commande getCommande() {
-    //     return commande;
-    // }
-    // public void setCommande(Commande commande) {
-    //     this.commande = commande;
-    // }
-
-    
     
 }

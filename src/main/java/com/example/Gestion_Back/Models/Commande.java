@@ -1,11 +1,16 @@
 package com.example.Gestion_Back.Models;
 
 import java.util.Date;
+import java.util.List;
 
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Commande {
@@ -16,7 +21,11 @@ public class Commande {
     private int quantite;
     private double montant;
 
+    @OneToMany(targetEntity = Produit.class, cascade = CascadeType.ALL)
+    @JoinColumn(name = "cp_fk",referencedColumnName = "idCom")
+    private List<Produit> produits;
     
+
     public Commande() {
     }
 
@@ -25,6 +34,8 @@ public class Commande {
         this.date_creation = date_creation;
         this.quantite = quantite;
         this.montant = montant;
+
+
     }
 
 
@@ -73,10 +84,19 @@ public class Commande {
         return "Commande [date_creation=" + date_creation + ", idCom=" + idCom + ", montant=" + montant + ", quantite="
                 + quantite + "]";
     }
-    
 
-    
 
+    public List<Produit> getProduits() {
+        return produits;
+    }
+
+
+    public void setProduits(List<Produit> produits) {
+        this.produits = produits;
+    }
+
+
+  
 
     
 }
