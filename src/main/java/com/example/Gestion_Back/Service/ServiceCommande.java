@@ -7,6 +7,7 @@ import com.example.Gestion_Back.Dto.ProduitDto;
 import com.example.Gestion_Back.Models.Commande;
 import com.example.Gestion_Back.Models.Produit;
 import com.example.Gestion_Back.Repository.CommandeRepository;
+import com.example.Gestion_Back.Repository.ProduitRepository;
 
 @Service
 public class ServiceCommande {
@@ -14,21 +15,18 @@ public class ServiceCommande {
     @Autowired
     CommandeRepository commandeRepository;
 
+    @Autowired
+    ProduitRepository produitRepository;
 
 
-
-   private Produit pro = new Produit();
-   private Commande com = new Commande();
-
-
-    
-   
-
-    public Commande ajouter(Commande commande){
-        double pri = pro.getPrix();
-        double qua = com.getQuantite();
-        double tot = pri * qua;
-        commande.setMontant(tot);
-        return commandeRepository.save(commande);
+    public Commande ajouter(Commande commande, Long quantity,Long price,Long montant_total){
+     
+        Commande qt = commandeRepository.getById(quantity);
+        Produit pr = produitRepository.getById(price);
+        Commande total = commandeRepository.getById(montant_total);
+        total.setMontant(qt.getQuantite()*pr.getPrix());
+        return commandeRepository.save(total);
+        
+        
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.Gestion_Back.Dto.ProduitDto;
 import com.example.Gestion_Back.Models.Client;
 import com.example.Gestion_Back.Models.Commande;
 import com.example.Gestion_Back.Models.Produit;
@@ -61,7 +62,7 @@ public class Controllers {
 
 
     @PostMapping("/commande")
-    public Commande ajoutCommande(@RequestBody Commande commande){
-        return serviceCommande.ajouter(commande);
+    public Commande ajoutCommande(@RequestBody ProduitDto pro, @RequestBody Commande commande){
+        return serviceCommande.ajouter(commande, pro.getQuantity(),pro.getMontant_total(),pro.getPrice());
     }
 }
